@@ -1,0 +1,199 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="description" content="Astro description"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="generator" content="Astro v4.15.10"><title>
+      Laravel Password Hashing
+    </title><link rel="stylesheet" href="/_astro/about.hYpyqsG6.css">
+<style>.blog article>:not([hidden])~:not([hidden]){--tw-space-y-reverse: 0;margin-top:calc(1rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(1rem * var(--tw-space-y-reverse))}.blog article{line-height:1.75rem}.blog ol,.blog ul{margin-left:2rem;list-style-type:decimal}.blog code{border-radius:.375rem;border-width:1px;--tw-bg-opacity: 1;background-color:rgb(243 244 246 / var(--tw-bg-opacity));padding:.125rem .25rem;font-family:Inconsolata,sans-serif;line-height:1}.blog pre{border-radius:.375rem;padding:.5rem .75rem}.blog pre *{border-width:0px!important;background-color:transparent!important;padding:0!important;font-family:Inconsolata,sans-serif!important;font-size:.875rem!important;line-height:1.25rem!important;font-weight:600!important}.blog h2{margin-top:2rem!important;font-size:1.5rem!important;line-height:2rem!important;font-weight:700!important}.blog h3{margin-top:1.5rem!important;font-size:1.25rem!important;line-height:1.75rem!important;font-weight:700!important}.blog h4{margin-top:1.25rem!important;font-size:1.125rem!important;line-height:1.75rem!important;font-weight:700!important}.blog h5{margin-top:1rem!important;font-size:1rem!important;line-height:1.5rem!important;font-weight:700!important}.blog h6{margin-top:.75rem!important;font-size:.875rem!important;line-height:1.25rem!important;font-weight:700!important}.blog blockquote{margin-top:1rem;border-left-width:4px;padding-left:1rem;font-style:italic;--tw-text-opacity: 1;color:rgb(75 85 99 / var(--tw-text-opacity))}
+</style></head> <body class="flex min-h-screen flex-col bg-gray-50"> <header class="fixed top-4 left-1/2 z-10 flex w-full max-w-2xl -translate-x-1/2 items-center justify-between rounded-lg border bg-white px-4 py-3 shadow-2xl"> <nav class="flex items-center gap-4"> <div class="relative group"> <div class="absolute -inset-1 rounded-lg bg-gradient-to-r from-blue-600 to-pink-600 opacity-0 blur-md transition duration-800 animate-tilt group-hover:opacity-100 group-hover:duration-200"></div> <a href="/" class="relative"> <svg width="1em" height="1em" viewBox="0 0 24 24" class="h-5 w-5 text-gray-600 transition-all duration-800 group-hover:text-white" data-icon="hugeicons:home-01">  <symbol id="ai:hugeicons:home-01"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" color="currentColor"><path d="M15 17c-.8.622-1.85 1-3 1s-2.2-.378-3-1"/><path d="M2.352 13.214c-.354-2.298-.53-3.446-.096-4.465s1.398-1.715 3.325-3.108L7.021 4.6C9.418 2.867 10.617 2 12.001 2c1.382 0 2.58.867 4.978 2.6l1.44 1.041c1.927 1.393 2.89 2.09 3.325 3.108c.434 1.019.258 2.167-.095 4.464l-.301 1.96c-.5 3.256-.751 4.884-1.919 5.856S16.554 22 13.14 22h-2.28c-3.415 0-5.122 0-6.29-.971c-1.168-.972-1.418-2.6-1.918-5.857z"/></g></symbol><use xlink:href="#ai:hugeicons:home-01"></use>  </svg> </a> </div> <div class="relative group"> <div class="absolute -inset-1 rounded-lg bg-gradient-to-r from-blue-600 to-pink-600 opacity-0 blur-md transition duration-800 animate-tilt group-hover:opacity-100 group-hover:duration-200"></div> <a href="/about" class="relative"> <svg width="1em" height="1em" viewBox="0 0 24 24" class="h-5 w-5 text-gray-600 transition-all duration-800 group-hover:text-white" data-icon="hugeicons:information-circle">  <symbol id="ai:hugeicons:information-circle"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" color="currentColor"><path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12s4.477 10 10 10s10-4.477 10-10"/><path d="M12.242 17v-5c0-.471 0-.707-.146-.854c-.147-.146-.382-.146-.854-.146m.75-3h.009"/></g></symbol><use xlink:href="#ai:hugeicons:information-circle"></use>  </svg> </a> </div> <div class="relative group"> <div class="absolute -inset-1 rounded-lg bg-gradient-to-r from-blue-600 to-pink-600 opacity-0 blur-md transition duration-800 animate-tilt group-hover:opacity-100 group-hover:duration-200"></div> <a href="/" class="relative"> <svg width="1em" height="1em" viewBox="0 0 24 24" class="h-5 w-5 text-gray-600 transition-all duration-800 group-hover:text-white" data-icon="hugeicons:file-01">  <symbol id="ai:hugeicons:file-01"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" color="currentColor"><path d="M3.5 10c0-3.771 0-5.657 1.245-6.828S7.993 2 12 2h.773c3.26 0 4.892 0 6.024.798c.324.228.612.5.855.805c.848 1.066.848 2.6.848 5.67v2.545c0 2.963 0 4.445-.469 5.628c-.754 1.903-2.348 3.403-4.37 4.113c-1.257.441-2.83.441-5.98.441c-1.798 0-2.698 0-3.416-.252c-1.155-.406-2.066-1.263-2.497-2.35c-.268-.676-.268-1.523-.268-3.216z"/><path d="M20.5 12a3.333 3.333 0 0 1-3.333 3.333c-.666 0-1.451-.116-2.098.057a1.67 1.67 0 0 0-1.179 1.179c-.173.647-.057 1.432-.057 2.098A3.333 3.333 0 0 1 10.5 22M8 7h7m-7 4h3"/></g></symbol><use xlink:href="#ai:hugeicons:file-01"></use>  </svg> </a> </div> <div class="relative group"> <div class="absolute -inset-1 rounded-lg bg-gradient-to-r from-blue-600 to-pink-600 opacity-0 blur-md transition duration-800 animate-tilt group-hover:opacity-100 group-hover:duration-200"></div> <a href="/" class="relative"> <svg width="1em" height="1em" viewBox="0 0 24 24" class="h-5 w-5 text-gray-600 transition-all duration-800 group-hover:text-white" data-icon="hugeicons:folder-search">  <symbol id="ai:hugeicons:folder-search"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 6.5h9.75c2.107 0 3.16 0 3.917.506a3 3 0 0 1 .827.827C22 8.59 22 9.393 22 11.5m-10-5l-.633-1.267c-.525-1.05-1.005-2.106-2.168-2.542C8.69 2.5 8.108 2.5 6.944 2.5c-1.816 0-2.724 0-3.406.38A3 3 0 0 0 2.38 4.038C2 4.72 2 5.628 2 7.444V10.5c0 4.714 0 7.071 1.464 8.535C4.822 20.394 6.944 20.493 11 20.5h1m10 1l-2.147-2.147m0 0a3.43 3.43 0 0 0 1.004-2.424a3.429 3.429 0 1 0-1.004 2.424" color="currentColor"/></symbol><use xlink:href="#ai:hugeicons:folder-search"></use>  </svg> </a> </div> </nav> <div class="relative group"> <div class="absolute -inset-1 rounded-lg bg-gradient-to-r from-blue-600 to-pink-600 opacity-0 blur-md transition duration-800 animate-tilt group-hover:opacity-100 group-hover:duration-200"></div> <a href="/" class="relative"> <svg width="1em" height="1em" viewBox="0 0 24 24" class="h-5 w-5 text-gray-600 transition-all duration-800 group-hover:text-white" data-icon="hugeicons:logout-03">  <symbol id="ai:hugeicons:logout-03"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 17.625c-.074 1.852-1.617 3.424-3.684 3.374c-.481-.012-1.076-.18-2.265-.515c-2.861-.807-5.345-2.164-5.941-5.203C3 14.724 3 14.095 3 12.837v-1.674c0-1.257 0-1.886.11-2.445c.596-3.038 3.08-4.395 5.941-5.202c1.19-.335 1.784-.503 2.265-.515c2.067-.05 3.61 1.522 3.684 3.374M21 12H10m11 0c0-.7-1.994-2.008-2.5-2.5M21 12c0 .7-1.994 2.008-2.5 2.5" color="currentColor"/></symbol><use xlink:href="#ai:hugeicons:logout-03"></use>  </svg> </a> </div> </header> <main class="mx-auto mt-28 w-full max-w-2xl grow">  <div class="blog"> <p class="flex items-center gap-2 text-sm"> <svg width="1em" height="1em" viewBox="0 0 24 24" class="h-4 w-4 text-gray-600" data-icon="hugeicons:property-edit">  <symbol id="ai:hugeicons:property-edit"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 11.5c0-4.478 0-6.718-1.391-8.109S15.979 2 11.5 2C7.022 2 4.782 2 3.391 3.391S2 7.021 2 11.5c0 4.478 0 6.718 1.391 8.109c1.339 1.338 3.462 1.389 7.609 1.39M2 7h19m-11 9h1.5M6 16h1m3-4h6M6 12h1m14.263 2.872c-.9-1.007-1.442-.947-2.042-.767c-.42.06-1.863 1.737-2.463 2.271c-.987.972-1.977 1.972-2.043 2.102c-.187.303-.36.84-.444 1.438c-.157.899-.467 1.866-.096 1.997c.18.24 1.08-.08 1.982-.211c.6-.108 1.021-.228 1.322-.408c.42-.251 1.201-1.138 2.547-2.456c.844-.886 1.658-1.498 1.898-2.097c.24-.899-.12-1.378-.66-1.87" color="currentColor"/></symbol><use xlink:href="#ai:hugeicons:property-edit"></use>  </svg> Fri Jul 01
+/
+<svg width="1em" height="1em" viewBox="0 0 24 24" class="h-4 w-4 text-gray-600" data-icon="hugeicons:user-edit-01">  <symbol id="ai:hugeicons:user-edit-01"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10.5 22H6.59c-1.545 0-2.774-.752-3.877-1.803c-2.26-2.153 1.45-3.873 2.865-4.715c2.55-1.52 5.628-1.87 8.422-1.054M16.5 6.5a4.5 4.5 0 1 1-9 0a4.5 4.5 0 0 1 9 0m1.933 7.349c.335-.364.503-.546.681-.652a1.4 1.4 0 0 1 1.397-.02c.18.1.354.277.7.63c.345.353.518.53.616.714c.238.447.23.988-.02 1.427c-.104.182-.282.353-.638.696l-4.231 4.075c-.674.65-1.011.974-1.432 1.139c-.421.164-.885.152-1.81.128l-.127-.003c-.282-.008-.422-.012-.504-.105s-.071-.236-.049-.523l.012-.156c.063-.808.095-1.213.253-1.576c.157-.363.43-.658.974-1.248z" color="currentColor"/></symbol><use xlink:href="#ai:hugeicons:user-edit-01"></use>  </svg> quanph </p> <h1 class="mt-2 text-4xl font-bold">Laravel Password Hashing</h1> <p class="mt-8"> <em class="relative">Deep dive into how Laravel hashes passwords.</em> </p> <article class="mt-4"> <blockquote>
+<p>Bài viết này sử dụng Laravel 11.x</p>
+</blockquote>
+<h2 id="phân-biệt-hashing-và-encryption">Phân biệt Hashing và Encryption</h2>
+<ul>
+<li>Hashing (băm) là mã hóa dữ liệu một chiều (one-way) , không thể giải mã ngược lại từ dữ liệu đã mã hóa.</li>
+<li>Encryption (mã hóa) là mã hóa dữ liệu hai chiều (two-way), có thể giải mã ngược lại từ dữ liệu đã mã hóa.</li>
+</ul>
+<blockquote>
+<p>Đối với mật khẩu, chúng ta sẽ sử dụng Hashing thay vì Encryption vì mục đích của mật khẩu là không thể giải mã ngược
+lại. Từ đó sẽ không có cách nào khác để lấy lại mật khẩu gốc từ mật khẩu đã mã hóa và bảo mật thông tin người dùng tốt
+hơn.</p>
+</blockquote>
+<h2 id="laravel-tạo-mật-khẩu-như-thế-nào">Laravel tạo mật khẩu như thế nào?</h2>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="php"><code><span class="line"><span style="color:#79B8FF">\Illuminate\Support\Facades\Hash</span><span style="color:#F97583">::</span><span style="color:#B392F0">make</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'password'</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">// "$2y$12$hqHHnplzZWN51nvTHS61KeS9Rfdfgp9rdOLx8QKu6sQ7b.WEf6Pp."</span></span>
+<span class="line"></span></code></pre>
+<p>Nếu chúng ta thực hiện câu lệnh trên nhiều lần, kết quả sẽ khác nhau mỗi lần.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="php"><code><span class="line"><span style="color:#6A737D">// "$2y$12$tIa2SmJtR2QxJYX9LkJ38ODYwpuQUWMColeuDUyBemWIjIl2UlyuS"</span></span>
+<span class="line"><span style="color:#6A737D">// "$2y$12$.fjqXri.DtJ3UYop7K4y9efvnZ88xMX2PmgRRBTjJTV9Q7xPVdxI2"</span></span>
+<span class="line"><span style="color:#6A737D">// "$2y$12$l4da6LfotWk3dvUrggZ/meleoRD6JqHGo7iONDR4Agkt1GM/YCIQi"</span></span>
+<span class="line"></span></code></pre>
+<p>Xem ví dụ dưới đây, làm thế nào Laravel có thể kiểm tra mật khẩu khi đăng nhập nếu mỗi lần mã hóa mật khẩu sẽ cho ra kết
+quả khác nhau?</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="php"><code><span class="line"><span style="color:#F97583">use</span><span style="color:#79B8FF"> Illuminate\Support\Facades\Hash</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">// Mật khẩu đã mã hóa được lưu trữ trong cơ sở dữ liệu</span></span>
+<span class="line"><span style="color:#E1E4E8">$storedHash </span><span style="color:#F97583">=</span><span style="color:#9ECBFF"> '••••••••••••••••••••••••••••••••••••••••'</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">// Mật khẩu người dùng nhập vào</span></span>
+<span class="line"><span style="color:#E1E4E8">$userInputPassword </span><span style="color:#F97583">=</span><span style="color:#9ECBFF"> 'password'</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">// Kiểm tra mật khẩu</span></span>
+<span class="line"><span style="color:#F97583">if</span><span style="color:#E1E4E8"> (</span><span style="color:#79B8FF">Hash</span><span style="color:#F97583">::</span><span style="color:#B392F0">check</span><span style="color:#E1E4E8">($userInputPassword, $storedHash)) {</span></span>
+<span class="line"><span style="color:#6A737D">    // Mật khẩu đúng</span></span>
+<span class="line"><span style="color:#79B8FF">    echo</span><span style="color:#9ECBFF"> "Password verified!"</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#E1E4E8">} </span><span style="color:#F97583">else</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#6A737D">    // Mật khẩu sai</span></span>
+<span class="line"><span style="color:#79B8FF">    echo</span><span style="color:#9ECBFF"> "Invalid password!"</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span></code></pre>
+<p>Laravel sử dụng Bcrypt và Argon2 để mã hóa mật khẩu. Bcrypt thường được ưu tiên hơn vì “work factor” của nó có thể tùy
+chỉnh. tức là thời gian để mã hóa mật khẩu có thể tăng nên theo sức mạnh phần cứng. Thuật toán để băm mật khẩu càng chậm
+thì sẽ mất nhiều thời gian hơn để các attacker có thể tạo các “rainbow tables” bao gồm tất cả các mật khẩu có thể băm để
+tiến hành tấn công “brute force” vào hệ thống.</p>
+<p>Argon2 là một thuật toán băm mật khẩu mới hơn và có vẻ mạnh mẽ hơn Bcrypt. Tuy nhiên chúng ta không tìm hiểu sâu vào 2
+thuật toán này trong bài viết này. Bạn có thể tham khảo <a href="https://laravel.com/docs/11.x/hashing">tài liệu của Laravel</a>
+để biết thêm thông tin. Trong tài liệu sẽ nói rõ hơn về các config “work factor” của Bcrypt và Argon2.</p>
+<p><code>Hash</code> sử dụng 2 phương thức trong PHP là <code>password_hash</code> và <code>password_verify</code> để mã hóa và kiểm tra mật khẩu.
+Cả 2 phương thức này đều là “wrapper” và tương thích với phương thức <code>crypt</code> trong PHP. Bạn có thể tham khảo ở đây:</p>
+<ul>
+<li><a href="https://www.php.net/manual/en/function.crypt.php">https://www.php.net/manual/en/function.crypt.php</a></li>
+<li><a href="https://www.php.net/manual/en/function.password-hash.php">https://www.php.net/manual/en/function.password-hash.php</a></li>
+<li><a href="https://www.php.net/manual/en/function.password-verify.php">https://www.php.net/manual/en/function.password-verify.php</a></li>
+</ul>
+<blockquote>
+<p>Tương thích tức là password được tạo bởi <code>crypt</code> có thể được kiểm tra bởi <code>password_verify</code> và ngược lại.</p>
+</blockquote>
+<p>Đây là cách mà Laravel triển khai 2 phương thức này trong class <code>BcryptHasher</code></p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="php"><code><span class="line"><span style="color:#6A737D">// Hash::make($password);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">/**</span></span>
+<span class="line"><span style="color:#6A737D"> * Hash the given value.</span></span>
+<span class="line"><span style="color:#6A737D"> *</span></span>
+<span class="line"><span style="color:#6A737D"> * </span><span style="color:#F97583">@param</span><span style="color:#F97583">  string</span><span style="color:#6A737D">  $value</span></span>
+<span class="line"><span style="color:#6A737D"> * </span><span style="color:#F97583">@param</span><span style="color:#F97583">  array</span><span style="color:#6A737D">  $options</span></span>
+<span class="line"><span style="color:#6A737D"> * </span><span style="color:#F97583">@return</span><span style="color:#F97583"> string</span></span>
+<span class="line"><span style="color:#6A737D"> *</span></span>
+<span class="line"><span style="color:#6A737D"> * </span><span style="color:#F97583">@throws</span><span style="color:#79B8FF"> \RuntimeException</span></span>
+<span class="line"><span style="color:#6A737D"> */</span></span>
+<span class="line"><span style="color:#F97583">public</span><span style="color:#F97583"> function</span><span style="color:#B392F0"> make</span><span style="color:#E1E4E8">(#[</span><span style="color:#79B8FF">\SensitiveParameter</span><span style="color:#E1E4E8">] $value, </span><span style="color:#F97583">array</span><span style="color:#E1E4E8"> $options </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> [])</span></span>
+<span class="line"><span style="color:#E1E4E8">{</span></span>
+<span class="line"><span style="color:#E1E4E8">    $hash </span><span style="color:#F97583">=</span><span style="color:#79B8FF"> password_hash</span><span style="color:#E1E4E8">($value, </span><span style="color:#79B8FF">PASSWORD_BCRYPT</span><span style="color:#E1E4E8">, [</span></span>
+<span class="line"><span style="color:#9ECBFF">        'cost'</span><span style="color:#F97583"> =></span><span style="color:#79B8FF"> $this</span><span style="color:#F97583">-></span><span style="color:#B392F0">cost</span><span style="color:#E1E4E8">($options),</span></span>
+<span class="line"><span style="color:#E1E4E8">    ]);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">    if</span><span style="color:#E1E4E8"> ($hash </span><span style="color:#F97583">===</span><span style="color:#79B8FF"> false</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#F97583">        throw</span><span style="color:#F97583"> new</span><span style="color:#79B8FF"> RuntimeException</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'Bcrypt hashing not supported.'</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"><span style="color:#E1E4E8">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">    return</span><span style="color:#E1E4E8"> $hash;</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">// Hash::check($value, $hashedValue);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">/**</span></span>
+<span class="line"><span style="color:#6A737D"> * Check the given plain value against a hash.</span></span>
+<span class="line"><span style="color:#6A737D"> *</span></span>
+<span class="line"><span style="color:#6A737D"> * </span><span style="color:#F97583">@param</span><span style="color:#F97583">  string</span><span style="color:#6A737D">  $value</span></span>
+<span class="line"><span style="color:#6A737D"> * </span><span style="color:#F97583">@param</span><span style="color:#F97583">  string</span><span style="color:#6A737D">  $hashedValue</span></span>
+<span class="line"><span style="color:#6A737D"> * </span><span style="color:#F97583">@param</span><span style="color:#F97583">  array</span><span style="color:#6A737D">  $options</span></span>
+<span class="line"><span style="color:#6A737D"> * </span><span style="color:#F97583">@return</span><span style="color:#F97583"> bool</span></span>
+<span class="line"><span style="color:#6A737D"> *</span></span>
+<span class="line"><span style="color:#6A737D"> * </span><span style="color:#F97583">@throws</span><span style="color:#79B8FF"> \RuntimeException</span></span>
+<span class="line"><span style="color:#6A737D"> */</span></span>
+<span class="line"><span style="color:#F97583">public</span><span style="color:#F97583"> function</span><span style="color:#B392F0"> check</span><span style="color:#E1E4E8">(#[</span><span style="color:#79B8FF">\SensitiveParameter</span><span style="color:#E1E4E8">] $value, $hashedValue, </span><span style="color:#F97583">array</span><span style="color:#E1E4E8"> $options </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> [])</span></span>
+<span class="line"><span style="color:#E1E4E8">{</span></span>
+<span class="line"><span style="color:#F97583">    if</span><span style="color:#E1E4E8"> (</span><span style="color:#79B8FF">is_null</span><span style="color:#E1E4E8">($hashedValue) </span><span style="color:#F97583">||</span><span style="color:#79B8FF"> strlen</span><span style="color:#E1E4E8">($hashedValue) </span><span style="color:#F97583">===</span><span style="color:#79B8FF"> 0</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#F97583">        return</span><span style="color:#79B8FF"> false</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#E1E4E8">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">    if</span><span style="color:#E1E4E8"> (</span><span style="color:#79B8FF">$this</span><span style="color:#F97583">-></span><span style="color:#E1E4E8">verifyAlgorithm </span><span style="color:#F97583">&#x26;&#x26;</span><span style="color:#F97583"> !</span><span style="color:#79B8FF"> $this</span><span style="color:#F97583">-></span><span style="color:#B392F0">isUsingCorrectAlgorithm</span><span style="color:#E1E4E8">($hashedValue)) {</span></span>
+<span class="line"><span style="color:#F97583">        throw</span><span style="color:#F97583"> new</span><span style="color:#79B8FF"> RuntimeException</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'This password does not use the Bcrypt algorithm.'</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"><span style="color:#E1E4E8">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">    return</span><span style="color:#F97583"> parent::</span><span style="color:#B392F0">check</span><span style="color:#E1E4E8">($value, $hashedValue, $options);</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span></code></pre>
+<p>Trong tài liệu của PHP có mô tả như sau:</p>
+<blockquote>
+<p><code>password_hash()</code> uses a strong hash, generates a strong salt, and applies proper rounds automatically.
+<code>password_hash()</code> is a simple <code>crypt()</code> wrapper and compatible with existing password hashes.
+Use of <code>password_hash()</code> is encouraged.</p>
+</blockquote>
+<p>Trong các ví dụ về Hash::make(’…’) ở trên, thực ra tất cả đều là kết quả của hàm <code>password_hash()</code>
+Chúng ta có thể thấy rằng luôn có 1 phần giống nhau ở đầu chuỗi mã hóa, ví dụ như <code>$2y$12$</code>.
+Đó là sự kết hợp của <code>algorithm</code>, <code>cost</code> và <code>salt</code> như là một phần của chuỗi mã hóa.
+Do đó tất cả các thông tin cần thiết mà chúng ta cần để kiểm tra mật khẩu đều đã được bao gồm trong chuỗi mã hóa.
+Nó cho phép hàm <code>password_verify()</code> kiểm tra mật khẩu mà không cần phải lưu trữ riêng <code>salt</code> hay <code>algorithm</code> ở nơi khác.</p>
+<p>Sâu hơn một chút, hàm <code>password_verify()</code> thực hiện các bước như sau:</p>
+<ul>
+<li><strong>Trích xuất tham số</strong>: Trích xuất các tham số được lưu trong chính chuỗi mã hóa.
+Các tham số này bao gồm <code>algorithm</code>, <code>cost</code>, và <code>salt</code>.</li>
+<li><strong>Băm mật khẩu cần kiểm tra</strong>: Sử dụng <code>algorithm</code>, <code>cost</code>, và <code>salt</code> để mã hóa mật khẩu người dùng nhập vào.</li>
+<li><strong>So sánh</strong>: So sánh chuỗi mã hóa của mật khẩu người dùng với chuỗi mã hóa đã lưu trữ.</li>
+</ul>
+<p>Để hiểu rõ hơn ta thử triển khai hàm <code>password_verify()</code> bằng cách sử dụng <code>crypt()</code> như sau:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="php"><code><span class="line"><span style="color:#F97583">function</span><span style="color:#B392F0"> password_verify</span><span style="color:#E1E4E8">($userInputPassword, $storedHash) {</span></span>
+<span class="line"><span style="color:#6A737D">    // Trích xuất các tham số từ chuỗi mã hóa</span></span>
+<span class="line"><span style="color:#E1E4E8">    $params </span><span style="color:#F97583">=</span><span style="color:#79B8FF"> explode</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'$'</span><span style="color:#E1E4E8">, $storedHash);</span></span>
+<span class="line"><span style="color:#E1E4E8">    $algorithm </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> $params[</span><span style="color:#79B8FF">1</span><span style="color:#E1E4E8">];</span></span>
+<span class="line"><span style="color:#E1E4E8">    $cost </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> (</span><span style="color:#F97583">int</span><span style="color:#E1E4E8">)$params[</span><span style="color:#79B8FF">2</span><span style="color:#E1E4E8">];</span></span>
+<span class="line"><span style="color:#E1E4E8">    $salt </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> $params[</span><span style="color:#79B8FF">3</span><span style="color:#E1E4E8">];</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">    // Băm mật khẩu người dùng nhập vào</span></span>
+<span class="line"><span style="color:#E1E4E8">    $rehashedPassword </span><span style="color:#F97583">=</span><span style="color:#79B8FF"> crypt</span><span style="color:#E1E4E8">($userInputPassword, </span><span style="color:#9ECBFF">'$'</span><span style="color:#F97583"> .</span><span style="color:#E1E4E8"> $algorithm </span><span style="color:#F97583">.</span><span style="color:#9ECBFF"> '$'</span><span style="color:#F97583"> .</span><span style="color:#E1E4E8"> $cost </span><span style="color:#F97583">.</span><span style="color:#9ECBFF"> '$'</span><span style="color:#F97583"> .</span><span style="color:#E1E4E8"> $salt);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">    // So sánh chuỗi mã hóa</span></span>
+<span class="line"><span style="color:#F97583">    if</span><span style="color:#E1E4E8"> ($rehashedPassword </span><span style="color:#F97583">===</span><span style="color:#E1E4E8"> $storedHash) {</span></span>
+<span class="line"><span style="color:#F97583">        return</span><span style="color:#79B8FF"> true</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#E1E4E8">    } </span><span style="color:#F97583">else</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#F97583">        return</span><span style="color:#79B8FF"> false</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#E1E4E8">    }</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span></code></pre>
+<h2 id="thiết-lập">Thiết lập</h2>
+<p>Hàm <code>password_hash()</code> có thể tạo ra chuỗi mã hóa mạnh mẽ bằng <code>salt</code>. Chúng ta cũng có thể tùy chỉnh “work factor” trong
+file <code>config/hashing.php</code> của Laravel.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="php"><code><span class="line"><span style="color:#6A737D">/*</span></span>
+<span class="line"><span style="color:#6A737D">|--------------------------------------------------------------------------</span></span>
+<span class="line"><span style="color:#6A737D">| Bcrypt Options</span></span>
+<span class="line"><span style="color:#6A737D">|--------------------------------------------------------------------------</span></span>
+<span class="line"><span style="color:#6A737D">|</span></span>
+<span class="line"><span style="color:#6A737D">| Here you may specify the configuration options that should be used when</span></span>
+<span class="line"><span style="color:#6A737D">| passwords are hashed using the Bcrypt algorithm. This will allow you</span></span>
+<span class="line"><span style="color:#6A737D">| to control the amount of time it takes to hash the given password.</span></span>
+<span class="line"><span style="color:#6A737D">|</span></span>
+<span class="line"><span style="color:#6A737D">*/</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#9ECBFF">'bcrypt'</span><span style="color:#F97583"> =></span><span style="color:#E1E4E8"> [</span></span>
+<span class="line"><span style="color:#9ECBFF">    'rounds'</span><span style="color:#F97583"> =></span><span style="color:#B392F0"> env</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'BCRYPT_ROUNDS'</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">12</span><span style="color:#E1E4E8">), </span><span style="color:#6A737D">// xác định số lần Bcrypt thực hiện quy trình băm. Mặc định, số vòng băm là 12.</span></span>
+<span class="line"><span style="color:#9ECBFF">    'verify'</span><span style="color:#F97583"> =></span><span style="color:#B392F0"> env</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'HASH_VERIFY'</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">true</span><span style="color:#E1E4E8">), </span><span style="color:#6A737D">// </span></span>
+<span class="line"><span style="color:#E1E4E8">],</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">/*</span></span>
+<span class="line"><span style="color:#6A737D">|--------------------------------------------------------------------------</span></span>
+<span class="line"><span style="color:#6A737D">| Argon Options</span></span>
+<span class="line"><span style="color:#6A737D">|--------------------------------------------------------------------------</span></span>
+<span class="line"><span style="color:#6A737D">|</span></span>
+<span class="line"><span style="color:#6A737D">| Here you may specify the configuration options that should be used when</span></span>
+<span class="line"><span style="color:#6A737D">| passwords are hashed using the Argon algorithm. These will allow you</span></span>
+<span class="line"><span style="color:#6A737D">| to control the amount of time it takes to hash the given password.</span></span>
+<span class="line"><span style="color:#6A737D">|</span></span>
+<span class="line"><span style="color:#6A737D">*/</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#9ECBFF">'argon'</span><span style="color:#F97583"> =></span><span style="color:#E1E4E8"> [</span></span>
+<span class="line"><span style="color:#9ECBFF">    'memory'</span><span style="color:#F97583"> =></span><span style="color:#B392F0"> env</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'ARGON_MEMORY'</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">65536</span><span style="color:#E1E4E8">),</span></span>
+<span class="line"><span style="color:#9ECBFF">    'threads'</span><span style="color:#F97583"> =></span><span style="color:#B392F0"> env</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'ARGON_THREADS'</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">1</span><span style="color:#E1E4E8">),</span></span>
+<span class="line"><span style="color:#9ECBFF">    'time'</span><span style="color:#F97583"> =></span><span style="color:#B392F0"> env</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'ARGON_TIME'</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">4</span><span style="color:#E1E4E8">),</span></span>
+<span class="line"><span style="color:#9ECBFF">    'verify'</span><span style="color:#F97583"> =></span><span style="color:#B392F0"> env</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'HASH_VERIFY'</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">true</span><span style="color:#E1E4E8">),</span></span>
+<span class="line"><span style="color:#E1E4E8">],</span></span>
+<span class="line"></span></code></pre>
+<p>Đối với Bcrypt, số vòng băm càng cao, thời gian xử lý để tạo ra giá trị băm càng lâu, giúp tăng cường độ bảo mật. Tuy
+nhiên, điều này cũng có thể ảnh hưởng đến hiệu suất hệ thống. Thông qua biến môi trường BCRYPT_ROUNDS, bạn có thể dễ
+dàng điều chỉnh số vòng băm tùy theo khả năng phần cứng mà không cần thay đổi mã nguồn.</p> </article> </div>  </main> <footer class="mx-auto mt-8 flex w-full max-w-2xl items-center justify-between rounded-t-lg border border-b-0 bg-white px-4 py-2 text-xs shadow"> <p class="text-center">
+© 2024 quanph.dev. All rights reserved.
+</p> <p>
+Created by
+<a href="https://github.com/code-tieumomo" target="_blank" class="font-semibold">quanph</a>
+using
+<a href="https://astro.build" target="_blank" class="underline">Astro</a>.
+</p> </footer> </body></html> 
