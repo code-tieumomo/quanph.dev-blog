@@ -1,0 +1,26 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { Icon } from "astro-icon/components";
+---
+
+<Layout title="About">
+  <div class="relative w-fit group">
+    <div
+      class="absolute -inset-1 rounded-lg bg-gradient-to-r from-blue-600 to-pink-600 opacity-0 blur-xl transition duration-800 animate-tilt group-hover:opacity-100 group-hover:duration-200">
+    </div>
+    <Icon name="hugeicons:quill-write-02" class="relative h-12 w-12 text-gray-600 group-hover:text-white"></Icon>
+  </div>
+
+  <article>
+    <p class="mt-8">
+      Welcome to my blog,<br>
+      where I share my journey through programming, life, and hobbies, offering knowledge, experiences, and insights
+      along the way.<br>
+      <br>
+      I believe that learning is a lifelong adventure, and through this blog, I hope to inspire others to explore new
+      skills, overcome challenges, and find joy in both the small and significant moments of life. Whether you're here
+      to dive into coding tips, seek personal growth, or simply discover new hobbies, there's something for everyone.
+      Let's embark on this journey together!
+    </p>
+  </article>
+</Layout>

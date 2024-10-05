@@ -1,6 +1,8 @@
 ---
+import { Icon } from "astro-icon/components";
+
 interface Props {
-	title: string;
+  title: string;
 }
 
 const { title } = Astro.props;
@@ -8,43 +10,93 @@ const { title } = Astro.props;
 
 <!doctype html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="description" content="Astro description" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>{title}</title>
-	</head>
-	<body>
-		<slot />
-	</body>
+  <head>
+    <meta charset="UTF-8"/>
+    <meta name="description" content="Astro description"/>
+    <meta name="viewport" content="width=device-width"/>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
+    <meta name="generator" content={ Astro.generator }/>
+    <title>
+      {title}
+    </title>
+  </head>
+  <body class="flex min-h-screen flex-col bg-gray-50">
+    <header
+      class="fixed top-4 left-1/2 z-10 flex w-full max-w-2xl -translate-x-1/2 items-center justify-between rounded-lg border bg-white px-4 py-3 shadow-2xl">
+      <nav class="flex items-center gap-4">
+        <div class="relative group">
+          <div
+            class="absolute -inset-1 rounded-lg bg-gradient-to-r from-blue-600 to-pink-600 opacity-0 blur-md transition duration-800 animate-tilt group-hover:opacity-100 group-hover:duration-200">
+          </div>
+          <a href="/" class="relative">
+            <Icon name="hugeicons:home-01"
+                  class="h-5 w-5 text-gray-600 transition-all duration-800 group-hover:text-white"/>
+          </a>
+        </div>
+        <div class="relative group">
+          <div
+            class="absolute -inset-1 rounded-lg bg-gradient-to-r from-blue-600 to-pink-600 opacity-0 blur-md transition duration-800 animate-tilt group-hover:opacity-100 group-hover:duration-200">
+          </div>
+          <a href="/about" class="relative">
+            <Icon name="hugeicons:information-circle"
+                  class="h-5 w-5 text-gray-600 transition-all duration-800 group-hover:text-white"/>
+          </a>
+        </div>
+        <div class="relative group">
+          <div
+            class="absolute -inset-1 rounded-lg bg-gradient-to-r from-blue-600 to-pink-600 opacity-0 blur-md transition duration-800 animate-tilt group-hover:opacity-100 group-hover:duration-200">
+          </div>
+          <a href="/" class="relative">
+            <Icon name="hugeicons:file-01"
+                  class="h-5 w-5 text-gray-600 transition-all duration-800 group-hover:text-white"/>
+          </a>
+        </div>
+        <div class="relative group">
+          <div
+            class="absolute -inset-1 rounded-lg bg-gradient-to-r from-blue-600 to-pink-600 opacity-0 blur-md transition duration-800 animate-tilt group-hover:opacity-100 group-hover:duration-200">
+          </div>
+          <a href="/" class="relative">
+            <Icon name="hugeicons:folder-search"
+                  class="h-5 w-5 text-gray-600 transition-all duration-800 group-hover:text-white"/>
+          </a>
+        </div>
+      </nav>
+
+      <div class="relative group">
+        <div
+          class="absolute -inset-1 rounded-lg bg-gradient-to-r from-blue-600 to-pink-600 opacity-0 blur-md transition duration-800 animate-tilt group-hover:opacity-100 group-hover:duration-200">
+        </div>
+        <a href="/" class="relative">
+          <Icon name="hugeicons:logout-03"
+                class="h-5 w-5 text-gray-600 transition-all duration-800 group-hover:text-white"/>
+        </a>
+      </div>
+    </header>
+
+    <main class="mx-auto mt-28 w-full max-w-2xl grow">
+      <slot/>
+    </main>
+
+    <footer
+      class="mx-auto mt-8 flex w-full max-w-2xl items-center justify-between rounded-t-lg border border-b-0 bg-white px-4 py-2 text-xs shadow">
+      <p class="text-center">
+        © 2024 quanph.dev. All rights reserved.
+      </p>
+      <p>
+        Created by
+        <a href="https://github.com/code-tieumomo" target="_blank" class="font-semibold">quanph</a>
+        using
+        <a href="https://astro.build" target="_blank" class="underline">Astro</a>.
+      </p>
+    </footer>
+  </body>
 </html>
+
 <style is:global>
-	:root {
-		--accent: 136, 58, 234;
-		--accent-light: 224, 204, 250;
-		--accent-dark: 49, 10, 101;
-		--accent-gradient: linear-gradient(
-			45deg,
-			rgb(var(--accent)),
-			rgb(var(--accent-light)) 30%,
-			white 60%
-		);
-	}
-	html {
-		font-family: system-ui, sans-serif;
-		background: #13151a;
-	}
-	code {
-		font-family:
-			Menlo,
-			Monaco,
-			Lucida Console,
-			Liberation Mono,
-			DejaVu Sans Mono,
-			Bitstream Vera Sans Mono,
-			Courier New,
-			monospace;
-	}
+    @import url('https://fonts.googleapis.com/css2?family=Inconsolata:wdth,wght@50..200,200..900&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+    body {
+        @apply text-gray-800 font-inter;
+    }
 </style>

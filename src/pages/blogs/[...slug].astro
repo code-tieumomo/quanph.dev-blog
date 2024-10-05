@@ -1,0 +1,85 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { Icon } from "astro-icon/components";
+import { getCollection } from "astro:content";
+
+export async function getStaticPaths() {
+  const blogEntries = await getCollection("blogs");
+  return blogEntries.map(entry => ({
+    params: { slug: entry.slug }, props: { entry }
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+---
+
+<Layout title={ entry.data.title }>
+  <div class="blog">
+    <p class="flex items-center gap-2 text-sm">
+      <Icon name="hugeicons:property-edit" class="h-4 w-4 text-gray-600"/>
+      { entry.data.pubDate.toString().slice(0, 10) }
+      /
+      <Icon name="hugeicons:user-edit-01" class="h-4 w-4 text-gray-600"/>
+      { entry.data.author }
+    </p>
+
+    <h1 class="mt-2 text-4xl font-bold">{ entry.data.title }</h1>
+
+    <p class="mt-8">
+      <em class="relative">{ entry.data.description }</em>
+    </p>
+
+    <article class="mt-4">
+      <Content/>
+    </article>
+  </div>
+</Layout>
+
+<style lang="scss" is:global>
+  .blog {
+    article {
+      @apply leading-7 space-y-4;
+    }
+
+    ol, ul {
+      @apply ml-8 list-decimal;
+    }
+
+    code {
+      @apply rounded-md border bg-gray-100 px-1 leading-none py-0.5 font-inconsolata;
+    }
+
+    pre {
+      @apply rounded-md px-3 py-2;
+
+      * {
+        @apply text-sm font-semibold font-inconsolata p-0 bg-transparent border-0 !important;
+      }
+    }
+
+    h2 {
+      @apply mt-8 text-2xl font-bold !important;
+    }
+
+    h3 {
+      @apply mt-6 text-xl font-bold !important;
+    }
+
+    h4 {
+      @apply mt-5 text-lg font-bold !important;
+    }
+
+    h5 {
+      @apply mt-4 text-base font-bold !important;
+    }
+
+    h6 {
+      @apply mt-3 text-sm font-bold !important;
+    }
+
+    blockquote {
+      @apply mt-4 pl-4 border-l-4 italic text-gray-600;
+    }
+  }
+</style>
