@@ -1,0 +1,70 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "../../layouts/Layout.astro";
+import { Icon } from "astro-icon/components";
+import { getLangFromUrl, useTranslations } from "../../i18n/utils";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const recentBlogPosts = (await getCollection("blog", ({ id }) => {
+  return id.startsWith(`${ lang }/`);
+}))
+  .sort((a, b) => (new Date(b.data.pubDate)).getTime() - (new Date(a.data.pubDate)).getTime())
+  .slice(0, 3);
+---
+
+<Layout title="Homepage">
+  <div class="relative w-fit group">
+    <div
+      class="absolute -inset-1 rounded-lg bg-gradient-to-r from-blue-600 to-pink-600 opacity-0 blur-xl transition duration-800 animate-tilt group-hover:opacity-100 group-hover:duration-200">
+    </div>
+    <Icon name="hugeicons:quill-write-02" class="relative h-12 w-12 text-gray-600 group-hover:text-white"></Icon>
+  </div>
+
+  <article class="font-inconsolata">
+    <p class="mt-8">
+      Welcome to my blog, where I share my journey through programming, life, and hobbies, offering knowledge,
+      experiences, and insights along the way<br>
+      And sometimes, I write documentation for my students.<br>
+      <br>
+      I believe that learning is a lifelong adventure, and through this blog, I hope to inspire others to explore new
+      skills, overcome challenges, and find joy in both the small and significant moments of life. Whether you're here
+      to dive into coding tips, seek personal growth, or simply discover new hobbies, there's something for everyone.
+      Let's embark on this journey together!
+    </p>
+  </article>
+
+  <h2 class="mt-8 flex items-center justify-between">
+    <span class="font-bold">
+      { t("home.recentPosts") }
+    </span>
+    <a href={ `blog` } class="flex items-center gap-1 text-sm hover:underline">
+      <Icon name="hugeicons:arrow-right-05" class="h-5 w-5 text-gray-600"/>
+      { t("home.viewAll") }
+    </a>
+  </h2>
+
+  <ul class="mt-4 space-y-4">
+    { recentBlogPosts.map((post) => (
+      <li class="flex flex-col rounded-lg border border-gray-300 px-4 py-3 transition-all hover:shadow-xl">
+        <p class="flex items-center gap-2 text-xs">
+          <Icon name="hugeicons:property-edit" class="h-4 w-4 text-gray-600"/>
+          { post.data.pubDate.toString().slice(0, 10) }
+          <span>/</span>
+          <Icon name="hugeicons:user-edit-01" class="h-4 w-4 text-gray-600"/>
+          { post.data.author }
+        </p>
+        <a href={ `blog/${ post.slug }` }
+           class="mt-1 w-fit font-semibold text-gray-600 hover:font-bold hover:underline flex gap-1 font-inconsolata text-lg">
+          { post.data.icon ?
+            <Icon name={ post.data.icon } class="h-4 w-4 mt-1"/> : null }
+          { post.data.title }
+        </a>
+        <p class="mt-2 text-sm italic line-clamp-3">
+          { post.data.description }
+        </p>
+      </li>
+    )) }
+  </ul>
+</Layout>
