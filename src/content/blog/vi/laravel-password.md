@@ -1,14 +1,15 @@
 ---
 title: 'Laravel Password Hashing'
 pubDate: 2022-07-01
-description: 'Deep dive into how Laravel hashes passwords.'
+description: 'Tìm hiểu cách Laravel mã hóa mật khẩu'
 author: 'quanph'
 slug: 'laravel-password-hashing'
 icon: 'logos:laravel'
-#image:
-#    url: 'https://docs.astro.build/assets/rose.webp'
-#    alt: 'The Astro logo on a dark background with a pink glow.'
+##image:
+##    url: 'https://docs.astro.build/assets/rose.webp'
+##    alt: 'The Astro logo on a dark background with a pink glow.'
 tags: [ "laravel", "web" ]
+lang: 'vi'
 ---
 
 > Bài viết này sử dụng Laravel 11.x

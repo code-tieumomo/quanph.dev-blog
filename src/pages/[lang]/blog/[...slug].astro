@@ -1,0 +1,40 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "../../../layouts/Layout.astro";
+import { Icon } from "astro-icon/components";
+
+export async function getStaticPaths() {
+  const pages = await getCollection("blog");
+
+  return pages.map(page => {
+    return { params: { lang: page.data.lang, slug: page.slug || undefined }, props: page };
+  });
+}
+
+const { lang, slug } = Astro.params;
+const page = Astro.props;
+
+const { Content } = await page.render();
+---
+
+<Layout title={ page.data.title }>
+  <div class="blog">
+    <p class="flex items-center gap-2 text-sm">
+      <Icon name="hugeicons:property-edit" class="h-4 w-4 text-gray-600"/>
+      { page.data.pubDate.toString().slice(0, 10) }
+      /
+      <Icon name="hugeicons:user-edit-01" class="h-4 w-4 text-gray-600"/>
+      { page.data.author }
+    </p>
+
+    <h1 class="mt-2 text-4xl font-bold">{ page.data.title }</h1>
+
+    <p class="mt-8">
+      <em class="relative">{ page.data.description }</em>
+    </p>
+
+    <article class="mt-4 prose prose-slate">
+      <Content/>
+    </article>
+  </div>
+</Layout>

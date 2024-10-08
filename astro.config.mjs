@@ -6,5 +6,12 @@ import icon from "astro-icon";
 
 // https://astro.build/config
 export default defineConfig({
-  integrations: [tailwind(), vue(), icon()]
+  integrations: [tailwind(), vue(), icon()],
+  i18n: {
+    defaultLocale: "vi",
+    locales: ["vi", "en"],
+    routing: {
+      prefixDefaultLocale: true
+    }
+  }
 });
